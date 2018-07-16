@@ -10,4 +10,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function index() {
+        return view('web.index');
+    }
+
+    public function group() {
+        return view('web.group.index');
+    }
 }

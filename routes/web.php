@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Controller@index')->name('index');
+Route::get('/home/group', 'Controller@group')->name('group.index');
+
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Auth::routes();
+
+Route::get('/profile', 'HomeController@index')->name('profile');
