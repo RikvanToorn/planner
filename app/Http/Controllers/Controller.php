@@ -14,8 +14,4 @@ class Controller extends BaseController
     public function index() {
         return view('web.index');
     }
-
-    public function group() {
-        return view('web.group.index');
-    }
 }

@@ -13,21 +13,39 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $user                   = new User();
-        $user->name             = 'user';
-        $user->email            = 'user@example.com';
-        $user->password         = bcrypt( 'user' );
+        $user->name             = 'Rik';
+        $user->email            = 'rik@example.com';
+        $user->password         = bcrypt( 'rik' );
         $user->save();
 
-        $moderator               = new User();
-        $moderator->name         = 'moderator';
-        $moderator->email        = 'moderator@example.com';
-        $moderator->password     = bcrypt( 'moderator' );
-        $moderator->save();
+        $user                   = new User();
+        $user->name             = 'Max';
+        $user->email            = 'max@example.com';
+        $user->password         = bcrypt( 'max' );
+        $user->save();
 
-        $admin                  = new User();
-        $admin->name            = 'admin';
-        $admin->email           = 'admin@example.com';
-        $admin->password        = bcrypt( 'admin' );
-        $admin->save();
+        $user                   = new User();
+        $user->name             = 'Marpessa';
+        $user->email            = 'marpessa@example.com';
+        $user->password         = bcrypt( 'marpessa' );
+        $user->save();
+
+        $user                   = new User();
+        $user->name             = 'Giel';
+        $user->email            = 'giel@example.com';
+        $user->password         = bcrypt( 'giel' );
+        $user->save();
+
+        $user                   = new User();
+        $user->name             = 'Bas';
+        $user->email            = 'bas@example.com';
+        $user->password         = bcrypt( 'bas' );
+        $user->save();
+
+        $user                   = new User();
+        $user->name             = 'Wim';
+        $user->email            = 'wim@example.com';
+        $user->password         = bcrypt( 'wim' );
+        $user->save();
     }
 }

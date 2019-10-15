@@ -7,10 +7,19 @@
     <div class="collapse navbar-collapse ml-auto">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link mx-2" href="">Home </a>
+                <a class="nav-link" href="{{  route('index') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-2" href="">Contact </a>
+                <a class="nav-link" href="{{  route('group_index') }}">Groups</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{  route('profile') }}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{  route('login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{  route('logout') }}">Logout</a>
             </li>
         </ul>
     </div>
