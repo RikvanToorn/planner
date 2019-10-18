@@ -5,8 +5,10 @@
 @section('body_class', 'body')
 
 @section('content')
-    <h3>Profiel</h3>
-    <p>Hier staat ook nog een beetje onzin</p>
-    <p>Jawel, meer onzin</p>
-    <p>De gebruiker: '{{ Auth::user()->name }}' is nu ingelogd.</p>
+    <div class="row">
+        <div class="col-12 mt-3">
+            <h3>Profile of {{ Auth::user()->name }}</h3>
+        </div>
+    </div>
+
 @endsection

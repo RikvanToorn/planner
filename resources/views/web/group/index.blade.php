@@ -8,13 +8,8 @@
     <div class="row">
         <div class="col-12 mt-3">
             <div class="row">
-                <div class="col-12 mt-3">
-                    <h3>Groups</h3>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-9 mt-3">
-                    <h4>Jouw groepen:</h4>
+                    <h3>Your groups:</h3>
                 </div>
                 <div class="col-3">
                     <a class="btn btn-info p-2 right ml-4" href="{{  route('group_new') }}">Nieuwe groep</a>

@@ -5,7 +5,9 @@
 @section('body_class', 'body')
 
 @section('content')
-<h3 class="jaja">Home</h3>
-    <p>Hier staat ook nog een beetje onzin</p>
-    <p>Jawel, meer onzin</p>
+    <div class="row">
+        <div class="col-12 mt-3">
+            <h3>Homepage</h3>
+        </div>
+    </div>
 @endsection

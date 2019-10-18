@@ -8,13 +8,14 @@
     <div class="row">
         <div class="col-8 mt-3">
             <div class="row">
-                <div class="col-12 mt-3">
-                    <h3>{{ $group->name }}</h3>
-                    <p>{{ $group->description }}</p>
+                <div class="col-12 mt-3 border-bottom">
+                    <h3>{{ $group->name }} <br>
+                    <small>{{ $group->description }}</small>
+                    </h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 mt-3">
+                <div class="col-12 mt-3" id="allTasks">
                     <h5>To Do:</h5>
                     <table class="table table-sm table-striped table-condensed">
                         <thead>
@@ -25,9 +26,9 @@
                                 <th style="width: 10%">Admin</th>
                             </tr>
                         </thead>
-                        <tbody id="tasks">
+                        <tbody id="openTasks">
                         @foreach($tasks as $task)
-                            <tr data-toggle="collapse" data-target="#description {{ $task->id }}" class="accordion-toggle" id="{{ $task->id }}">
+                            <tr data-toggle="collapse" data-target="#description{{ $task->id }}" class="accordion-toggle" id="task{{ $task->id }}">
                                 <th>{{ $task->name }}</th>
                                 <td>
                                     @if(isset($task->user_id))
@@ -39,23 +40,23 @@
                                 </td>
                                 <td>
                                     @if(isset($task->user_id) and $task->user_id == Auth::user()->id)
-                                        <a class="btn btn-success btn-sm" href="{{ route('task_complete', ['task_id' => $task->id]) }}">Complete</a>
+                                        <button class="btn btn-success btn-sm complete-task-button" value="{{ $task->id }}">Complete</button>
                                     @elseif(isset($task->user_id))
                                     @else
-                                        <button type="button" class="btn btn-warning" onclick="dotask({{ $task->id }})" value="{{ $task->id }}">Do</button>
+                                        <button class="btn btn-warning btn-sm do-task-button" value="{{ $task->id }}">Do</button>
                                     @endif
                                 </td>
                                 <td>
                                     @if($task->user_id == Auth::user()->id or $user_role == 'admin' or $user_role == 'moderator')
-                                        <a class="btn" href="{{ route('task_delete', ['task_id' => $task->id]) }}">
+                                        <button class="btn btn-danger btn-sm delete-task-button" value="{{ $task->id }}">
                                             <i class="fas fa-trash"></i>
-                                        </a>
+                                        </button>
                                     @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <div class="accordian-body collapse" id="description {{ $task->id }}">
+                                    <div class="accordian-body collapse" id="description{{ $task->id }}">
                                         {{ $task->description }}
                                     </div>
                                 </td>
@@ -63,17 +64,17 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <form method="POST">
+                    <form id="addTask">
                         <input id="group_id" type="hidden" value={{ $group->id }}>
                         <div class="row">
                             <div class="col-5">
-                                <input type="text" class="form-control" id="name" placeholder="Name">
+                                <input type="text" class="form-control" id="taskName" placeholder="Name">
                             </div>
                             <div class="col-5">
-                                <input type="text" class="form-control" id="description" placeholder="Description">
+                                <input type="text" class="form-control" id="taskDescription" placeholder="Description">
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary" id="addtask">Add</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
                             </div>
                         </div>
                     </form>
@@ -87,24 +88,35 @@
                             <th style="width: 10%">Admin</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="completedTasks">
                         @foreach($completedtasks as $completedtask)
-                            <tr>
-                                <th scope="row">{{ $completedtask->name }}</th>
+                            <tr data-toggle="collapse" data-target="#description{{ $completedtask->id }}" class="accordion-toggle" id="task{{ $completedtask->id }}">
+                                <th>{{ $completedtask->name }}</th>
                                 <td>
-                                    {{ $completedtask->user->name }}
-                                </td>
-                                <td>
-                                    @if($completedtask->user_id == Auth::user()->id or $user_role == 'admin' or $user_role == 'moderator')
-                                        <a class="btn btn-danger btn-sm" href="{{ route('task_open', ['task_id' => $completedtask->id]) }}">Move back</a>
+                                    @if(isset($completedtask->user_id))
+                                        {{ $completedtask->user->name }}
+                                    @else
+                                        not claimed
                                     @endif
                                 </td>
                                 <td>
                                     @if($completedtask->user_id == Auth::user()->id or $user_role == 'admin' or $user_role == 'moderator')
-                                        <a class="btn" href="{{ route('task_delete', ['task_id' => $completedtask->id]) }}">
+                                        <button class="btn btn-warning btn-sm open-task-button" value="{{ $completedtask->id }}">Move back</button>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($completedtask->user_id == Auth::user()->id or $user_role == 'admin' or $user_role == 'moderator')
+                                        <button class="btn btn-danger btn-sm delete-task-button" value="{{ $completedtask->id }}">
                                             <i class="fas fa-trash"></i>
-                                        </a>
+                                        </button>
                                     @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="accordian-body collapse" id="description{{ $completedtask->id }}">
+                                        {{ $completedtask->description }}
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -125,7 +137,7 @@
                                 <th scope="col"></th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="groupMembers">
                                 @foreach($groupmembers as $groupmember)
                                     <tr>
                                         <td scope="row">{{ $groupmember->name }}</td>
@@ -146,14 +158,14 @@
                 @if($user_role == 'admin' or $user_role == 'moderator')
                 <div class="row mb-4">
                     <div class="col-12">
-                        <form class="form-horizontal">
+                        <form id="searchUsers" class="form-horizontal">
                             <input id="group_id" type="hidden" value={{ $group->id }}>
                             <div class="row">
                                 <div class="col-8">
-                                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Search for groupmembers">
+                                    <input type="text" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="Search for groupmembers">
                                 </div>
                                 <div class="col-4">
-                                    <button type="button" class="btn btn-primary" id="search">Submit</button>
+                                    <button type="submit" class="btn btn-primary" id="search">Submit</button>
                                 </div>
                             </div>
                         </form>
