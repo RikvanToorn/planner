@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12 mt-3">
+        <div class="col-12 my-3">
             <h3>New group</h3>
             <form id="groupForm" class="form-horizontal" method="POST" action="{{ route('group_create') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -27,10 +27,10 @@
                 </div>
                     @if(old('group_user_list'))
                         @foreach( old('group_user_list') as $user)
-                            <input type="hidden" class="group-user-field" name="group_user_list[]" value=" {{ $user }} ">
+                            <input type="hidden" id="user{{ $user }}" class="group-user-field" name="group_user_list[]" value=" {{ $user }} ">
                         @endforeach
                     @endif
-                <input type="submit" value="Submit" class="btn btn-primary">
+                <input type="submit" value="Create Group" class="btn btn-success">
             </form>
         </div>
     </div>

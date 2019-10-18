@@ -54,7 +54,7 @@ $(function(){
             success: function(result){
                 $("#openTasks").append(
                     '<tr data-toggle="collapse" data-target="#description' + result.id + '" class="accordion-toggle" id="task' + result.id + '"><th>' + result.name +
-                    '</th><td>not claimed</td><td><button class="btn btn-warning btn-sm do-task-button" value="' + result.id +
+                    '</th><td class="claimed-by">not claimed</td><td><button class="btn btn-warning btn-sm do-task-button" value="' + result.id +
                     '">Do</button></td><td><button class="btn btn-danger btn-sm delete-task-button" value="' + result.id +
                     '"><i class="fas fa-trash"></i></button></td></tr><tr><td colspan="4"><div class="accordian-body collapse" id="description' + result.id + '">' + result.description +
                     '</div></td></tr>'
@@ -72,15 +72,16 @@ $(function(){
             url: 'dotask/' + $(this).val(),
             type: 'get',
             success: function(result) {
-                $('#task' + result.id).next().remove();
-                $('#task' + result.id).replaceWith(
-                    '<tr data-toggle="collapse" data-target="#' + result.id + '" class="accordion-toggle" id="task' + result.id + '"><th>' + result.name +
-                    '</th><td>not claimed</td><td><button class="btn btn-success btn-sm complete-task-button" value="' + result.id + '">Complete</button></td><td><button class="btn btn-danger btn-sm delete-task-button" value="' + result.id + '"><i class="fas fa-trash"></i></button></td></tr><tr><td colspan="4"><div class="accordian-body collapse" id="' + result.id + '">' + result.description +
-                    '</div></td></tr>'
-                )
+                $('#task' + result.id).find('.do-task-button').removeClass("btn-warning do-task-button").text("Complete").addClass("btn-success complete-task-button");
+                $('#task' + result.id).find('.claimed-by').empty().append("<h6>Claimed!</h6>");
+
             }
         });
 
+    });
+
+    $('#openTasks').on('click', '.undo-task-button', function() {
+       console.log('undo');
     });
 
     $('#allTasks').on('click', '.delete-task-button', function() {
@@ -145,12 +146,12 @@ $(function(){
         $(this).find(".fas").removeClass("fa-user-plus").addClass("fa-user-minus");
         $(this).removeClass("btn-success add-invite-button").addClass("btn-danger remove-invite-button");
         $('#addedGroupmembers').append($(this).parent().parent());
-        $('#groupForm').append('<input type="hidden" class="group-user-field" name="group_user_list[]" value="' + $(this).val() + '">');
+        $('#groupForm').append('<input type="hidden" class="group-user-field" id="user' + $(this).val() + '" name="group_user_list[]" value="' + $(this).val() + '">');
 
     });
 
     $('#addedGroupmembers').on('click', '.remove-invite-button', function() {
-        console.log($('.group-user-field').find("[value='" + $(this).val() + "']").val());
+        $('#user' + $(this).val()).remove();
         $(this).parent().parent().remove();
 
 

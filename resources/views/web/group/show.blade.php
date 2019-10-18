@@ -30,7 +30,7 @@
                         @foreach($tasks as $task)
                             <tr data-toggle="collapse" data-target="#description{{ $task->id }}" class="accordion-toggle" id="task{{ $task->id }}">
                                 <th>{{ $task->name }}</th>
-                                <td>
+                                <td class="claimed-by">
                                     @if(isset($task->user_id))
                                         {{ $task->user->name }}
                                     @else
@@ -41,13 +41,14 @@
                                 <td>
                                     @if(isset($task->user_id) and $task->user_id == Auth::user()->id)
                                         <button class="btn btn-success btn-sm complete-task-button" value="{{ $task->id }}">Complete</button>
+                                        {{--<button class="btn btn-dark btn-sm undo-task-button" value="{{ $task->id }}">Undo</button>--}}
                                     @elseif(isset($task->user_id))
                                     @else
                                         <button class="btn btn-warning btn-sm do-task-button" value="{{ $task->id }}">Do</button>
                                     @endif
                                 </td>
                                 <td>
-                                    @if($task->user_id == Auth::user()->id or $user_role == 'admin' or $user_role == 'moderator')
+                                    @if($task->created_by_user == Auth::user()->id or $user_role == 'admin' or $user_role == 'moderator')
                                         <button class="btn btn-danger btn-sm delete-task-button" value="{{ $task->id }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
