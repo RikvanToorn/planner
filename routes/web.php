@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::post('group/newtask', 'GroupController@addtask')->name('task_add');
         Route::get('group/dotask/{task_id}', 'GroupController@dotask')->name('task_do');
+        Route::get('group/undotask/{task_id}', 'GroupController@undotask')->name('task_undo');
         Route::get('group/completetask/{task_id}', 'GroupController@completetask')->name('task_complete');
         Route::get('group/opentask/{task_id}', 'GroupController@opentask')->name('task_open');
         Route::get('group/deletetask/{task_id}', 'GroupController@deletetask')->name('task_delete');
@@ -37,8 +38,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     });
 
-    Route::get('/profile', 'HomeController@index')->name('profile');
-
+    Route::group(['prefix' => 'profile'], function() {
+        Route::get('{user_id}', 'UserController@showuser')->name('profile');
+        Route::get('updateprofilepicture', 'UserController@index')->name('update_profile_picture');
+    });
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });
 

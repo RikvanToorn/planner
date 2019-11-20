@@ -181,6 +181,14 @@ class GroupController extends Controller
         return response()->json($task);
     }
 
+    public function undotask($task_id) {
+        $task = Task::find($task_id);
+        $task->user_id = NULL;
+
+        $task->save();
+        return response()->json($task);
+    }
+
     public function completetask($task_id) {
         $task = Task::find($task_id);
         $task->status = 'Completed';

@@ -9,18 +9,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{  route('index') }}">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{  route('group_index') }}">Groups</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{  route('profile') }}">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{  route('login') }}">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{  route('logout') }}">Logout</a>
-            </li>
+            @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{  route('group_index') }}">Groups</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{  route('profile', ['user_id' => Auth::user()->id]) }}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{  route('logout') }}">Logout</a>
+                </li>
+            @endauth
+            @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{  route('login') }}">Login</a>
+                </li>
+            @endguest
         </ul>
     </div>
 </nav>

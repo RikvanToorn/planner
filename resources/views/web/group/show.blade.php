@@ -38,10 +38,10 @@
                                     @endif
 
                                 </td>
-                                <td>
+                                <td class="action-buttons">
                                     @if(isset($task->user_id) and $task->user_id == Auth::user()->id)
                                         <button class="btn btn-success btn-sm complete-task-button" value="{{ $task->id }}">Complete</button>
-                                        {{--<button class="btn btn-dark btn-sm undo-task-button" value="{{ $task->id }}">Undo</button>--}}
+                                        <button class="btn btn-warning btn-sm undo-task-button" value="{{ $task->id }}">Undo</button>
                                     @elseif(isset($task->user_id))
                                     @else
                                         <button class="btn btn-warning btn-sm do-task-button" value="{{ $task->id }}">Do</button>
@@ -93,14 +93,14 @@
                         @foreach($completedtasks as $completedtask)
                             <tr data-toggle="collapse" data-target="#description{{ $completedtask->id }}" class="accordion-toggle" id="task{{ $completedtask->id }}">
                                 <th>{{ $completedtask->name }}</th>
-                                <td>
+                                <td class="claimed-by">
                                     @if(isset($completedtask->user_id))
                                         {{ $completedtask->user->name }}
                                     @else
                                         not claimed
                                     @endif
                                 </td>
-                                <td>
+                                <td class="action-buttons">
                                     @if($completedtask->user_id == Auth::user()->id or $user_role == 'admin' or $user_role == 'moderator')
                                         <button class="btn btn-warning btn-sm open-task-button" value="{{ $completedtask->id }}">Move back</button>
                                     @endif

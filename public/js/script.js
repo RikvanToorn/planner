@@ -72,7 +72,8 @@ $(function(){
             url: 'dotask/' + $(this).val(),
             type: 'get',
             success: function(result) {
-                $('#task' + result.id).find('.do-task-button').removeClass("btn-warning do-task-button").text("Complete").addClass("btn-success complete-task-button");
+                $('#task' + result.id).find('.action-buttons').append('<button class="btn btn-success btn-sm complete-task-button" value="' + result.id + '">Complete</button>');
+                $('#task' + result.id).find('.do-task-button').removeClass("do-task-button").text("Undo").addClass("undo-task-button");
                 $('#task' + result.id).find('.claimed-by').empty().append("<h6>Claimed!</h6>");
 
             }
@@ -81,7 +82,16 @@ $(function(){
     });
 
     $('#openTasks').on('click', '.undo-task-button', function() {
-       console.log('undo');
+        $.ajax({
+            url: 'undotask/' + $(this).val(),
+            type: 'get',
+            success: function(result) {
+                $('#task' + result.id).find('.undo-task-button').removeClass("undo-task-button").text("Do").addClass("do-task-button");
+                $('#task' + result.id).find('.complete-task-button').remove();
+                $('#task' + result.id).find('.claimed-by').empty().append("<h6>Unclaimed!</h6>");
+
+            }
+        });
     });
 
     $('#allTasks').on('click', '.delete-task-button', function() {
@@ -106,6 +116,7 @@ $(function(){
                 success: function (result) {
                     var collapse = $('#task' + result.id).next();
                     $('#task' + result.id).find(".complete-task-button").text('Move back').removeClass("complete-task-button btn-success").addClass("open-task-button btn-warning");
+                    $('#task' + result.id).find('.undo-task-button').remove();
                     $('#task' + result.id).detach().appendTo('#completedTasks');
                     collapse.detach().appendTo('#completedTasks');
 
@@ -121,6 +132,7 @@ $(function(){
                 type: 'get',
                 success: function (result) {
                     var collapse = $('#task' + result.id).next();
+                    $('#task' + result.id).find('.action-buttons').prepend('<button class="btn btn-warning btn-sm undo-task-button" value="' + result.id + '">Undo</button>');
                     $('#task' + result.id).find(".open-task-button").text('Complete').removeClass("open-task-button btn-warning").addClass("complete-task-button btn-success");
                     $('#task' + result.id).detach().appendTo('#openTasks');
                     collapse.detach().appendTo('#openTasks');
