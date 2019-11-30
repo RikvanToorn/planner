@@ -40,8 +40,8 @@
                                 </td>
                                 <td class="action-buttons">
                                     @if(isset($task->user_id) and $task->user_id == Auth::user()->id)
-                                        <button class="btn btn-success btn-sm complete-task-button" value="{{ $task->id }}">Complete</button>
                                         <button class="btn btn-warning btn-sm undo-task-button" value="{{ $task->id }}">Undo</button>
+                                        <button class="btn btn-success btn-sm complete-task-button" value="{{ $task->id }}">Complete</button>
                                     @elseif(isset($task->user_id))
                                     @else
                                         <button class="btn btn-warning btn-sm do-task-button" value="{{ $task->id }}">Do</button>

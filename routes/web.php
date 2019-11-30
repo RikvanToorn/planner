@@ -40,7 +40,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::group(['prefix' => 'profile'], function() {
         Route::get('{user_id}', 'UserController@showuser')->name('profile');
-        Route::get('updateprofilepicture', 'UserController@index')->name('update_profile_picture');
+        Route::post('updateavatar', 'UserController@updateavatar')->name('update_avatar');
+
+        Route::get('{user_id}/messages', 'MessageController@index')->name('messages');
     });
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });

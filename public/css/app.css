@@ -6,6 +6,8 @@
   color: red;
 }
 
-#profilepicture {
-  border-width: 0px;
+
+
+.avatar {
+  height: 100px;
 }

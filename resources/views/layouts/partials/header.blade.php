@@ -17,6 +17,9 @@
                     <a class="nav-link" href="{{  route('profile', ['user_id' => Auth::user()->id]) }}">Profile</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{  route('messages', ['user_id' => Auth::user()->id]) }}">Messages</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{  route('logout') }}">Logout</a>
                 </li>
             @endauth

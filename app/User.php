@@ -32,4 +32,13 @@ class User extends Authenticatable
             ->withPivot('role')
             ->withTimestamps();
     }
+
+    public function receivedmessages() {
+        return $this->hasMany('App\Message', 'receiver_user_id', 'id');
+    }
+
+    public function sendmessages() {
+        return $this->hasMany('App\Message', 'sender_user_id', 'id');
+    }
+
 }

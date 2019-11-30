@@ -54,7 +54,7 @@ $(function(){
             success: function(result){
                 $("#openTasks").append(
                     '<tr data-toggle="collapse" data-target="#description' + result.id + '" class="accordion-toggle" id="task' + result.id + '"><th>' + result.name +
-                    '</th><td class="claimed-by">not claimed</td><td><button class="btn btn-warning btn-sm do-task-button" value="' + result.id +
+                    '</th><td class="claimed-by">not claimed</td><td class="action-buttons"><button class="btn btn-warning btn-sm do-task-button" value="' + result.id +
                     '">Do</button></td><td><button class="btn btn-danger btn-sm delete-task-button" value="' + result.id +
                     '"><i class="fas fa-trash"></i></button></td></tr><tr><td colspan="4"><div class="accordian-body collapse" id="description' + result.id + '">' + result.description +
                     '</div></td></tr>'
@@ -72,7 +72,7 @@ $(function(){
             url: 'dotask/' + $(this).val(),
             type: 'get',
             success: function(result) {
-                $('#task' + result.id).find('.action-buttons').append('<button class="btn btn-success btn-sm complete-task-button" value="' + result.id + '">Complete</button>');
+                $('#task' + result.id).find('.action-buttons').append(' <button class="btn btn-success btn-sm complete-task-button" value="' + result.id + '">Complete</button>');
                 $('#task' + result.id).find('.do-task-button').removeClass("do-task-button").text("Undo").addClass("undo-task-button");
                 $('#task' + result.id).find('.claimed-by').empty().append("<h6>Claimed!</h6>");
 
